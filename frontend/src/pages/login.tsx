@@ -6,18 +6,29 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Login() {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
+
     try {
       const res = await api.post("/auth/login", { email, password });
-      login(res.data.token, res.data.user);
-      navigate("/");
+
+      // Save token in AuthContext & localStorage
+      localStorage.setItem("token", res.data.token);
+      login(res.data.token, res.data.user || null);
+
+      navigate("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,7 +39,9 @@ export default function Login() {
         className="bg-white p-6 rounded shadow-md w-96"
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
+
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+
         <input
           type="email"
           placeholder="Email"
@@ -37,6 +50,7 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Password"
@@ -45,13 +59,18 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 w-full rounded"
+          disabled={loading}
+          className={`${
+            loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+          } text-white px-4 py-2 w-full rounded transition`}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
-        <p className="mt-3 text-sm">
+
+        <p className="mt-3 text-sm text-center">
           Don’t have an account?{" "}
           <Link to="/register" className="text-blue-500 underline">
             Register
