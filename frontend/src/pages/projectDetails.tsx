@@ -168,7 +168,7 @@ export default function ProjectDetails() {
         {/* Task List */}
         <div className="w-full bg-gray-50 rounded-lg border-0 divide-y divide-gray-200 my-[1rem]">
   {filteredTasks.length > 0 ? (
-    filteredTasks.map((t, index) => {
+    filteredTasks.map((t) => {
       const isEditing = editTaskId === t._id;
       const statusColor = t.status === "To-do" ? "text-red-500" : t.status === "In-progress" ? "text-yellow-500" : "text-green-500";
       const dueDateOnly = formatDateForDisplay(t.dueDate); // Use the new formatting function
