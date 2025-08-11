@@ -25,7 +25,7 @@ export default function Register() {
         name: form.name || undefined,
       });
 
-      navigate("/login");
+      navigate("/login"); // After successfull registration
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
@@ -37,7 +37,6 @@ export default function Register() {
     <div
       className="container-register w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
     >
-      {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black opacity-40"></div>
 
       <div className="relative z-10 w-full flex items-center justify-center inner-container-register p-[0px]">

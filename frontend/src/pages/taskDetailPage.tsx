@@ -20,7 +20,11 @@ export default function ProjectDetails() {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("To-do");
   const [dueDate, setDueDate] = useState("");
+
+  // Filtering tasks
   const [filter, setFilter] = useState("all");
+
+  // Editing 
   const [editTaskId, setEditTaskId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
@@ -30,6 +34,7 @@ export default function ProjectDetails() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  // Formating Date display on screen
   const formatDateForDisplay = (date: Date | null | undefined): string => {
     if (!date) return "";
     const d = new Date(date);
@@ -40,6 +45,7 @@ export default function ProjectDetails() {
     return `${day}/${month}/${year}`;
   };
 
+  // Fetching all Tasks
   const fetchTasks = async () => {
     try {
       const params: any = { page };
@@ -72,6 +78,7 @@ export default function ProjectDetails() {
     }
   };
 
+  // Add or Create Task
   const addTask = async () => {
     try {
       const due = dueDate ? new Date(dueDate) : new Date();
@@ -94,6 +101,7 @@ export default function ProjectDetails() {
     }
   };
 
+  // Update Task
   const updateTask = async (taskId: string, updates: Partial<Task>) => {
     try {
       await api.put(`/tasks/${taskId}`, updates);
@@ -104,6 +112,7 @@ export default function ProjectDetails() {
     }
   };
 
+  // Delete Task
   const deleteTask = async (taskId: string) => {
     if (window.confirm("Delete this task?")) {
       try {

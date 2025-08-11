@@ -19,13 +19,14 @@ export default function Login() {
     setLoading(true);
 
     try {
+      
       const res = await api.post("/auth/login", { email, password });
 
       // Save token in AuthContext & localStorage
       localStorage.setItem("token", res.data.token);
       login(res.data.token, res.data.user || null);
 
-      navigate("/dashboard");
+      navigate("/dashboard"); // After successfull login
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -36,7 +37,6 @@ export default function Login() {
   return (
     <div
       className="container-login w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
-      // optional: add background image if you want like register
     >
       <div className="absolute inset-0 bg-black opacity-40"></div>
 

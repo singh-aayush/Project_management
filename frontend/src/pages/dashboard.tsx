@@ -20,6 +20,7 @@ export default function Dashboard() {
   const [searchInput, setSearchInput] = useState(""); // user typing
   const [search, setSearch] = useState(""); // actual applied search
 
+  // Editing
   const [editProjectId, setEditProjectId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
@@ -31,6 +32,7 @@ export default function Dashboard() {
   const [total, setTotal] = useState(0);
   const limit = 7;
 
+  // Fetching all projects with pagination
   const fetchProjects = useCallback(
     async (p = page, s = search) => {
       try {
@@ -57,6 +59,7 @@ export default function Dashboard() {
     fetchProjects(page, search);
   }, [page, search, fetchProjects]);
 
+  // Add or Create project
   const addProject = async () => {
     if (!title.trim()) return;
     try {
@@ -77,6 +80,7 @@ export default function Dashboard() {
     }
   };
 
+  // Update project
   const updateProject = async (id: string, updates: Partial<Project>) => {
     try {
       await api.put(`/projects/${id}`, updates);
@@ -87,6 +91,7 @@ export default function Dashboard() {
     }
   };
 
+  // Delete project 
   const deleteProject = async (id: string) => {
     try {
       const res = await api.delete(`/projects/${id}`);
@@ -110,9 +115,9 @@ export default function Dashboard() {
 
   // Logout handler
   const handleLogout = () => {
-    // Clear any auth tokens or data here, adjust as needed
+    // Clearing any auth tokens or data here
     localStorage.clear();
-    window.location.href = "/login"; // Redirect to login page or home
+    window.location.href = "/login"; // Redirect to login page
   };
 
   return (

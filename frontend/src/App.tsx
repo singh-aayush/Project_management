@@ -6,7 +6,7 @@ import ProjectDetails from "./pages/taskDetailPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {
-  const token = localStorage.getItem("token"); // Or however you're storing JWT
+  const token = localStorage.getItem("token");
 
   return (
     <Router>
@@ -15,7 +15,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Default redirect: if logged in -> dashboard, else -> register */}
+        {/* Default redirect: if logged in then -> dashboard otherwise -> register page */}
         <Route
           path="/"
           element={
