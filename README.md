@@ -20,7 +20,7 @@ This repository contains the **backend** Node.js/Express API supporting user aut
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/react-auth-app.git
+git clone [https://github.com/your-username/react-auth-app.git](https://github.com/singh-aayush/Project_management.git)
 cd backend
 
 ### 2. Install Dependencies 
@@ -80,7 +80,7 @@ This repository contains the **frontend** React application for user registratio
 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/react-auth-app.git
+git clone [https://github.com/your-username/react-auth-app.git](https://github.com/singh-aayush/Project_management.git)
 cd react-auth-app
 
 ### 2. Install Dependencies 
