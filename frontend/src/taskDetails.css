@@ -104,6 +104,7 @@
   border-radius: 0.5rem !important; /* 8px */
   font-size: 0.75rem !important; /* 12px */
   padding: 0.5rem 1rem !important; /* 8px 16px */
+  background-color: black !important;
 }
 
 /* Media queries sizes */
