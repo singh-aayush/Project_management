@@ -21,10 +21,11 @@ This repository contains the **backend** Node.js/Express API supporting user aut
 
 - **User Authentication:** Registration and login with secure password hashing (bcrypt) and JWT token issuance.
 - **Task Management:** Create, update, delete, and fetch tasks associated with projects.
-- **Pagination & Filtering:** Support for paginated task lists with filtering by status.
+- **Pagination & Filtering:** Support for paginated task lists.
 - **Error Handling:** Consistent API error responses.
 - **Security:** Password hashing, JWT verification middleware.
-- **Database:** MongoDB with Mongoose ODM.
+- **Database:** MongoDB with Mongoose.
+- **Search Feature:** Search feature given for project filtering.
 
 ---
 
