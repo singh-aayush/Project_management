@@ -7,13 +7,13 @@ This repository contains the **backend** Node.js/Express API supporting user aut
 ## Live Demo Links
 
 - **Frontend (Deployed on Vercel):**  
-  [https://your-frontend-app.vercel.app](https://your-frontend-app.vercel.app)
+  [https://your-frontend-app.vercel.app](https://vercel.com/aayush-singhs-projects-b6a6e790/project-management-3zpp/6ebHF1mMuSxJf4obFok9fPWGt1kU)
 
 - **Backend API (Deployed on Render):**  
-  [https://your-backend-api.onrender.com](https://your-backend-api.onrender.com)
+  [https://your-backend-api.onrender.com]((https://dashboard.render.com/web/srv-d2caru1r0fns73dpmoig))
 
 - **Full Live Project:**  
-  [https://your-frontend-app.vercel.app](https://your-frontend-app.vercel.app) (frontend linked to the backend above)
+  [https://your-frontend-app.vercel.app](https://project-management-3-git-803850-aayush-singhs-projects-b6a6e790.vercel.app/) (frontend linked to the backend above)
 
 ---
 
