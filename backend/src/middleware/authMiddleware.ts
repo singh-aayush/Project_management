@@ -20,7 +20,7 @@ export const authMiddleware = (
   }
 
   if (!process.env.JWT_TOKEN) {
-    console.error('❌ JWT_TOKEN is missing in .env');
+    console.error('JWT_TOKEN is missing in .env');
     return res.status(500).json({ message: 'Server configuration error' });
   }
 

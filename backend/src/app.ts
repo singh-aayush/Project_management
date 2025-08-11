@@ -10,46 +10,42 @@ import projectRoutes from './routes/project.js';
 import taskRoutes from './routes/task.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-// ✅ Load environment variables first
+// Load environment variables first
 dotenv.config();
 
 const app = express();
 
-// ✅ Middlewares
+// Middlewares
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// ✅ Ensure Mongo URL exists
 if (!process.env.MONGO_URL) {
-  console.error('❌ MONGO_URL is missing in .env file');
+  console.error('MONGO_URL is missing in .env file');
   process.exit(1);
 }
 
-// ✅ Debug log to check value (remove in production)
-console.log('Connecting to MongoDB:', process.env.MONGO_URL);
-
-// ✅ Connect to MongoDB
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => console.log('✅ MongoDB connected'))
+  .then(() => console.log('MongoDB connected'))
   .catch((error) => {
-    console.error('❌ MongoDB connection error:', error);
-    process.exit(1); // Stop server if DB fails
+    console.error('MongoDB connection error:', error);
+    process.exit(1); // Stop's server if DB fails
   });
 
-// ✅ Health route
+// Health route
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ success: true, message: 'API is healthy' });
 });
 
-// ✅ Routes
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api', taskRoutes);
 
-// ✅ Error handler
+// Error handler
 app.use(errorHandler);
 
 export default app;

@@ -4,13 +4,13 @@ import { hashPassword, comparePassword } from '../utils/hash.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-// ✅ Load env variables
+// Load env variables
 dotenv.config();
 
 export const register = async (req: Request, res: Response) => {
   const { email, password, name } = req.body;
 
-  console.log("📩 Register request body:", { email, password, name });
+  console.log("Register request body:", { email, password, name });
 
   try {
     const existingUser = await User.findOne({ email });
@@ -45,7 +45,7 @@ export const login = async (req: Request, res: Response) => {
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    // ✅ Use env variable instead of config file
+    // Use env variable instead of config file
     if (!process.env.JWT_TOKEN) {
       console.error('❌ JWT_TOKEN not set in .env file');
       return res.status(500).json({ message: 'Server configuration error' });

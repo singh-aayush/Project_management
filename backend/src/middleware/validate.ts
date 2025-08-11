@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 
-// Define a custom error class
+// Definining a custom error class
 class ValidationError extends Error {
   status: number;
   errors: any[];

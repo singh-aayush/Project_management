@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Project schema for storing data
 const projectSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   title: { type: String, required: true },

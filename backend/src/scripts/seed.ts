@@ -5,15 +5,15 @@ import { User } from '../models/user.js';
 import { Project } from '../models/project.js';
 import { Task } from '../models/task.js';
 
-// 1️⃣ Load environment variables
+// Load environment variables
 dotenv.config();
 
 console.log("MONGO_URL from env:", process.env.MONGO_URL);
 if (!process.env.MONGO_URL) {
-  throw new Error('❌ MONGO_URL not found — check your .env file');
+  throw new Error('MONGO_URL not found — check your .env file');
 }
 
-// 2️⃣ Config object (no external file)
+// Config env
 const config = {
   mongoUrl: process.env.MONGO_URL,
   jwtSecret: process.env.JWT_TOKEN || 'default_secret',
@@ -31,7 +31,7 @@ async function seed(): Promise<void> {
   try {
     // Connect to MongoDB
     await mongoose.connect(config.mongoUrl!);
-    console.log('✅ Connected to MongoDB for seeding');
+    console.log(' Connected to MongoDB for seeding');
 
     const email = 'test@example.com';
     const plainPassword = 'Test@123';
@@ -42,9 +42,9 @@ async function seed(): Promise<void> {
     if (!user) {
       const hashed = await bcrypt.hash(plainPassword, 10);
       user = await User.create({ email, password: hashed, name });
-      console.log('👤 Created user:', email);
+      console.log('Created user:', email);
     } else {
-      console.log('ℹ️ User already exists:', email);
+      console.log('User already exists:', email);
     }
 
     // Remove old projects & tasks for this user
@@ -56,7 +56,7 @@ async function seed(): Promise<void> {
       { owner: user._id, title: 'Project Alpha', description: 'Seed project alpha' },
       { owner: user._id, title: 'Project Beta', description: 'Seed project beta' },
     ]);
-    console.log('📁 Created projects:', projects.map((p) => p.title).join(', '));
+    console.log('Created projects:', projects.map((p) => p.title).join(', '));
 
     // Create 3 tasks for each project
     const tasksData: TaskData[] = [];
@@ -68,9 +68,9 @@ async function seed(): Promise<void> {
       );
     }
     const tasks = await Task.create(tasksData);
-    console.log(`✅ Created ${tasks.length} tasks.`);
+    console.log(`Created ${tasks.length} tasks.`);
 
-    console.log('\n🎯 Seeding complete. Login with:');
+    console.log('Seeding complete. Login with:');
     console.log(`Email: ${email}`);
     console.log(`Password: ${plainPassword}`);
 
@@ -78,7 +78,7 @@ async function seed(): Promise<void> {
     process.exit(0);
   } catch (err: unknown) {
     const error = err instanceof Error ? err : new Error(String(err));
-    console.error('❌ Seeding error:', error.message);
+    console.error('Seeding error:', error.message);
     process.exit(1);
   }
 }

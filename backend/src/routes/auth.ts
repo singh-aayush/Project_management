@@ -5,10 +5,10 @@ import { validate } from '../middleware/validate.js';
 
 const router = Router();
 
-/**
- * Register
- * POST /api/auth/register
- */
+
+  // Register
+  // POST /api/auth/register
+ 
 router.post(
   '/register',
   [
@@ -20,10 +20,10 @@ router.post(
   register
 );
 
-/**
- * Login
- * POST /api/auth/login
- */
+
+  // Login
+  // POST /api/auth/login
+ 
 router.post(
   '/login',
   [
@@ -34,10 +34,10 @@ router.post(
   login
 );
 
-/**
- * Logout
- * POST /api/auth/logout
- */
+
+  // Logout
+  // POST /api/auth/logout
+ 
 router.post('/logout', logout);
 
 export default router;
