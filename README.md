@@ -4,6 +4,19 @@ This repository contains the **backend** Node.js/Express API supporting user aut
 
 ---
 
+## Live Demo Links
+
+- **Frontend (Deployed on Vercel):**  
+  [https://your-frontend-app.vercel.app](https://your-frontend-app.vercel.app)
+
+- **Backend API (Deployed on Render):**  
+  [https://your-backend-api.onrender.com](https://your-backend-api.onrender.com)
+
+- **Full Live Project:**  
+  [https://your-frontend-app.vercel.app](https://your-frontend-app.vercel.app) (frontend linked to the backend above)
+
+---
+
 ## Features
 
 - **User Authentication:** Registration and login with secure password hashing (bcrypt) and JWT token issuance.
