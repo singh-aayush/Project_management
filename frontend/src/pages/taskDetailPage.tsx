@@ -120,8 +120,8 @@ export default function ProjectDetails() {
   }, [projectId, filter, page]);
 
   return (
-    <div className="container flex justify-center items-start w-full">
-      <div className="inner-container w-[90%] rounded-xl min-h-screen p-[10px]">
+    <div className="container-task flex justify-center items-start w-full">
+      <div className="inner-container-task w-[90%] rounded-xl min-h-screen p-[10px]">
         {/* Heading and Back Button */}
         <div className="flex justify-between items-center mb-4 heading">
           <h1 className="header-title font-bold text-white text-2xl m-0">Add Tasks</h1>

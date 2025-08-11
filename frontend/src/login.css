@@ -1,5 +1,5 @@
 @media (min-width: 768px) {
-  .container {
+  .container-login {
     padding: 0px !important;
     display: flex !important;
     justify-content: center !important;
@@ -8,7 +8,7 @@
     width: 100% !important;
   }
 
-  .inner-container {
+  .inner-container-login {
     width: 80% !important;
     padding: 0px !important;
     height: 100% !important;
@@ -17,13 +17,13 @@
     justify-content: center !important;
   }
 
-  .button {
+  .button-login {
     width: 97% !important;
   }
 }
 
 @media (min-width: 1024px) {
-  .inner-container {
+  .inner-container-login {
     width: 50% !important;
     padding: 0px !important; /* 24px */
   }

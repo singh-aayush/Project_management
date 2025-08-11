@@ -35,12 +35,12 @@ export default function Register() {
 
   return (
     <div
-      className="container w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
+      className="container-register w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
     >
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black opacity-40"></div>
 
-      <div className="relative z-10 w-full flex items-center justify-center inner-container p-[0px]">
+      <div className="relative z-10 w-full flex items-center justify-center inner-container-register p-[0px]">
 
         <form
           onSubmit={handleSubmit}
@@ -82,7 +82,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-[90%] button ${
+            className={`w-[90%] button-register ${
               loading ? "bg-gray-400" : "bg-green-500 hover:bg-green-600"
             } text-white px-4 py-2 w-full rounded transition mt-4`}
           >

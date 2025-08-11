@@ -35,12 +35,12 @@ export default function Login() {
 
   return (
     <div
-      className="container w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
+      className="container-login w-[100%] h-[100vh] flex items-center justify-center bg-cover bg-center relative p-[0px]"
       // optional: add background image if you want like register
     >
       <div className="absolute inset-0 bg-black opacity-40"></div>
 
-      <div className="relative z-10 w-full flex items-center justify-center inner-container p-[0px]">
+      <div className="relative z-10 w-full flex items-center justify-center inner-container-login p-[0px]">
         <form
           onSubmit={handleSubmit}
           className="bg-white bg-opacity-90 p-[12px] rounded-lg shadow-lg w-[90%] max-w-md mx-auto form"
@@ -74,7 +74,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className={`w-[90%] mt-[10px] button ${
+            className={`w-[90%] mt-[10px] button-login ${
               loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
             } text-white px-4 py-2 w-full rounded transition mt-4`}
           >

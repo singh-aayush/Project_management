@@ -116,10 +116,10 @@ export default function Dashboard() {
   };
 
   return (
-  <div className="min-h-screen  flex justify-center items-start py-10 container">
-    <div className="min-h-screen rounded-xl p-[10px] inner-container">
+  <div className="min-h-screen  flex justify-center items-start py-10 container-project">
+    <div className="min-h-screen rounded-xl p-[10px] inner-container-project">
       {/* Header */}
-      <div className="flex justify-between items-center mb-[1.5rem] heading">
+      <div className="flex justify-between items-center mb-[1.5rem] heading-project">
         <h1 className=" font-bold text-white header-title">Project Management</h1>
         <button
           onClick={handleLogout}

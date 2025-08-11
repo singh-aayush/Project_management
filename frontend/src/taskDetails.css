@@ -1,12 +1,12 @@
 /* ProjectDetails.css */
 
 /* Container padding and border radius */
-.container {
+.container-task {
   padding-bottom: 2.5rem !important;
   min-height: 100vh !important;
 }
 
-.inner-container {
+.inner-container-task {
   min-height: 100vh !important;
   padding: 10px !important;
   border-radius: 0.75rem !important; /* 12px */
@@ -108,10 +108,9 @@
 
 /* Media queries sizes */
 @media (min-width: 768px) {
-  .inner-container {
+  .inner-container-task {
     width: 60% !important;
     padding: 1.5rem !important; /* 24px */
-    margin-top: 11rem !important;
   }
   .add-task-button {
     width: auto !important;
@@ -164,10 +163,9 @@
 }
 
 @media (min-width: 1024px) {
-  .inner-container {
+  .inner-container-task {
     width: 60% !important;
     padding: 1.5rem !important; /* 24px */
-    margin-top: 12rem !important;
   }
   .add-task-button {
     width: auto !important;
@@ -176,7 +174,7 @@
     width: 100% !important;
   }
   .heading h1{
-    width: 80% !important;
+    width: 60% !important;
   }
   .task-item {
     gap: 1rem !important; /* 16px */

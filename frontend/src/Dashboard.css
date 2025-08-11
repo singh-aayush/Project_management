@@ -2,7 +2,7 @@
 
 /* Default: mobile-first layout */
 
-.container {
+.container-project {
   width: 100% !important;
   padding-top: 1.5rem !important;
   padding-bottom: 2.5rem !important;
@@ -12,7 +12,7 @@
   min-height: 100vh !important;
 }
 
-.inner-container {
+.inner-container-project {
   width: 90% !important;
   min-height: 100vh !important;
   padding: 10px !important;
@@ -20,7 +20,7 @@
   /* background-color: white !important; */
 }
 
-.inner-container button{
+.inner-container-project button{
     background-color: black !important;
 }
 
@@ -173,15 +173,14 @@
 
 /* Tablet (≥ 768px) */
 @media (min-width: 768px) {
-  .inner-container {
+  .inner-container-project {
     width: 60% !important ;
     padding: 1.5rem !important ;
-    margin-top: 10rem !important;
     flex-direction: column !important ;
     height: 50% !important;
   }
 
-  .heading{
+  .heading-project{
     width: 80% !important;
   }
 
@@ -244,17 +243,16 @@
 
 /* Desktop (≥ 1024px) */
 @media (min-width: 1024px) {
-  .inner-container {
+  .inner-container-project {
     width: 60% !important ;
     padding: 1.5rem !important ;
-    margin-top: 6rem !important;
     flex-direction: column !important ;
     height: 50% !important;
   }
   .search-wrapper{
     width: 90% !important;
   }
-  .heading{
+  .heading-project{
     width: 100% !important;
     align-items: center !important;
   }
@@ -315,6 +313,5 @@
 
   .pagination {
     flex-wrap: nowrap !important;
-    margin-bottom: 2rem !important;
   }
 }
