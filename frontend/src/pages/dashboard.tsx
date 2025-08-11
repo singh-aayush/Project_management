@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import api from "../services/api";
 import { Search } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ interface Project {
   title: string;
   description: string;
   status: string;
+  createdAt?: string;
 }
 
 export default function Dashboard() {
@@ -15,29 +16,65 @@ export default function Dashboard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
+
   const [editProjectId, setEditProjectId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
-  const [editStatus, setEditStatus] = useState("active");
+  const [editStatus, setEditStatus] = useState("Active");
 
-  const fetchProjects = async () => {
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);  // Track total projects
+  const limit = 7;
+
+  const fetchProjects = useCallback(async (p = page, s = search) => {
     try {
-      const res = await api.get("/projects");
-      setProjects(Array.isArray(res.data.projects) ? res.data.projects : []);
+      const res = await api.get("/projects", {
+        params: { page: p, search: s }
+      });
+
+      console.log("res", res)
+
+      const data = res.data;
+      setProjects(Array.isArray(data.projects) ? data.projects : []);
+      setTotal(data.pagination?.total ?? 0);
+      setTotalPages(data.pagination?.pages ?? 1);
+      setPage(data.pagination?.page ?? p);
     } catch (error) {
       console.error("Error fetching projects:", error);
       setProjects([]);
+      setTotal(0);
+      setTotalPages(1);
     }
-  };
+  }, [page, search]);
+
+  useEffect(() => {
+    // whenever page or search changes, fetch
+    fetchProjects(page, search);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, search]);
 
   const addProject = async () => {
     if (!title.trim()) return;
     try {
-      await api.post("/projects", { title, description });
+      const res = await api.post("/projects", { title, description });
+      // Backend responds with pagination info (total, pages)
+      const pagination = res.data.pagination;
+      const newTotal = pagination?.total ?? (total + 1);
+      const newPages = pagination?.pages ?? Math.ceil(newTotal / limit);
+
       setTitle("");
       setDescription("");
-      fetchProjects();
+
+      // If sorting is oldest-first, new project will be on the last page,
+      // so go to last page to show it.
+      setTotal(newTotal);
+      setTotalPages(newPages);
+      setPage(newPages);
+
+      // fetchProjects will run because page changed (useEffect) — but call once to be sure:
+      fetchProjects(newPages, search);
     } catch (error) {
       console.error("Error adding project:", error);
     }
@@ -46,8 +83,9 @@ export default function Dashboard() {
   const updateProject = async (id: string, updates: Partial<Project>) => {
     try {
       await api.put(`/projects/${id}`, updates);
-      fetchProjects();
-      setEditProjectId(null); // Exit edit mode after saving
+      // simple approach: refetch current page
+      fetchProjects(page, search);
+      setEditProjectId(null);
     } catch (error) {
       console.error("Error updating project:", error);
     }
@@ -55,44 +93,44 @@ export default function Dashboard() {
 
   const deleteProject = async (id: string) => {
     try {
-      await api.delete(`/projects/${id}`);
-      fetchProjects();
+      const res = await api.delete(`/projects/${id}`);
+      // backend returns updated pagination after delete
+      const pagination = res.data.pagination;
+      const newTotal = pagination?.total ?? Math.max(0, total - 1);
+      const newPages = pagination?.pages ?? Math.max(1, Math.ceil(newTotal / limit));
+
+      // If after deletion current page is out of range (e.g., we deleted the last item on last page), go back one page
+      if (page > newPages) {
+        setPage(newPages);
+        // fetchProjects will run via useEffect when page changes
+      } else {
+        // Otherwise just refetch current page
+        fetchProjects(page, search);
+      }
+
+      setTotal(newTotal);
+      setTotalPages(newPages);
     } catch (error) {
       console.error("Error deleting project:", error);
     }
   };
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
-
-  const filteredProjects = projects.filter((p) => {
-    const matchesSearch = p.title.toLowerCase().includes(search.toLowerCase());
-    const matchesFilter =
-      filter === "all"
-        ? true
-        : filter === "active"
-        ? p.status === "active"
-        : p.status === "completed";
-    return matchesSearch && matchesFilter;
-  });
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex justify-center items-start py-10">
       <div className="min-h-screen w-3/5 bg-white rounded-xl p-[10px]">
-        {/* Heading */}
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Project Management
-        </h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Project Management</h1>
 
-        {/* Search bar */}
+        {/* Search */}
         <div className="flex justify-center mb-[1rem]">
           <div className="relative w-3/5 md:w-1/3">
             <input
               type="text"
               placeholder="Search projects..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
               className="w-full border border-gray-300 rounded-[2px] px-3 py-2 text-[1rem] outline-none"
             />
             <Search className="absolute right-0 top-2.5 text-gray-400" size={18} />
@@ -101,7 +139,7 @@ export default function Dashboard() {
 
         {/* Add Project */}
         <div className="flex flex-col gap-4 mb-[1.5rem]">
-          <div className="flex flex-row md:flex-row gap-[12px]">
+          <div className="flex flex-row gap-[12px]">
             <input
               type="text"
               placeholder="Project Title"
@@ -125,37 +163,20 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Filter */}
-        <div className="flex gap-[10px] mb-[1rem]">
-          {["all", "active", "completed"].map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f as typeof filter)}
-              className={`px-4 py-2 rounded-lg border text-sm capitalize ${
-                filter === f
-                  ? "bg-blue-600 text-white"
-                  : "bg-white text-gray-800 hover:bg-gray-200"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-
         {/* Project List */}
         <div className="bg-gray-50 rounded-lg border-0 divide-y divide-gray-200">
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((p, index) => {
+          {projects.length > 0 ? (
+            projects.map((p, index) => {
               const isEditing = editProjectId === p._id;
-
               return (
                 <div
                   key={p._id}
-                  className="flex flex-row md:flex-row justify-between items-center p-4 gap-4"
+                  className="flex flex-row justify-between items-center p-4 gap-4"
                 >
-                  {/* Left: Project Info or Edit Form */}
-                  <div className="flex flex-row gap-[10px] my-[10px] items-center w-full">
-                    <p className="text-xs text-gray-500 mr-[5px]">{index + 1}.</p>
+                  <div className="flex flex-row gap-[10px] items-center w-full">
+                    <p className="text-xs text-gray-500 mr-[5px]">
+                      {(page - 1) * limit + index + 1}.
+                    </p>
                     {isEditing ? (
                       <div className="flex flex-col w-full mr-[10px]">
                         <input
@@ -176,23 +197,25 @@ export default function Dashboard() {
                           onChange={(e) => setEditStatus(e.target.value)}
                           className="border p-2 mb-2 w-full h-[1.5rem] text-[1rem] rounded-[2px]"
                         >
-                          <option value="active">Active</option>
-                          <option value="completed">Completed</option>
+                          <option value="Active">Active</option>
+                          <option value="Completed">Completed</option>
                         </select>
                       </div>
                     ) : (
                       <div className="flex flex-col w-full mr-[10px]">
-                        <h3 className="text-lg font-semibold m-[0px]">{p.title}</h3>
-                        <p className="text-sm text-gray-600 my-[5px]">{p.description}</p>
+                        <h3 className="text-lg font-semibold">{p.title}</h3>
+                        <p className="text-sm text-gray-600">{p.description}</p>
                         <div className="flex items-center gap-[10px]">
                           <span>Status: </span>
                           <select
                             value={p.status}
-                            onChange={(e) => updateProject(p._id, { status: e.target.value })}
+                            onChange={(e) =>
+                              updateProject(p._id, { status: e.target.value })
+                            }
                             className="border p-1 text-[1rem] rounded-[2px] bg-transparent"
                           >
-                            <option value="active">Active</option>
-                            <option value="completed">Completed</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed">Completed</option>
                           </select>
                           <span>|</span>
                           <Link
@@ -206,11 +229,16 @@ export default function Dashboard() {
                     )}
                   </div>
 
-                  {/* Right: Actions */}
                   <div className="flex gap-[10px]">
                     {isEditing ? (
                       <button
-                        onClick={() => updateProject(p._id, { title: editTitle, description: editDescription, status: editStatus })}
+                        onClick={() =>
+                          updateProject(p._id, {
+                            title: editTitle,
+                            description: editDescription,
+                            status: editStatus
+                          })
+                        }
                         className="bg-green-500 text-white px-3 py-1 rounded-lg text-xs hover:bg-green-600 transition"
                       >
                         Save
@@ -241,6 +269,27 @@ export default function Dashboard() {
           ) : (
             <p className="p-4 text-gray-500 text-center">No projects found.</p>
           )}
+        </div>
+
+        {/* Pagination Controls */}
+        <div className="flex justify-center gap-4 mt-4">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage((prev) => prev - 1)}
+            className="px-4 py-2 border rounded disabled:opacity-50"
+          >
+            Prev
+          </button>
+          <span>
+            Page {page} of {totalPages} — {total} project{total !== 1 ? 's' : ''}
+          </span>
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage((prev) => prev + 1)}
+            className="px-4 py-2 border rounded disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
