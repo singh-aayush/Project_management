@@ -15,6 +15,10 @@ This repository contains the **backend** Node.js/Express API supporting user aut
 - **Full Live Project:**  
   [https://your-frontend-app.vercel.app](https://project-management-3-git-803850-aayush-singhs-projects-b6a6e790.vercel.app/) (frontend linked to the backend above)
 
+- Demo Email & password for checking.
+- Email - ayush1@gmail.com
+- Password - ayush@123
+
 ---
 
 ## Features
