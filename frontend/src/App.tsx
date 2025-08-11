@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
-import ProjectDetails from "./pages/projectDetails";
+import ProjectDetails from "./pages/taskDetailPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {

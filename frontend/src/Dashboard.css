@@ -1,0 +1,320 @@
+/* DashboardResponsive.css */
+
+/* Default: mobile-first layout */
+
+.container {
+  width: 100% !important;
+  padding-top: 1.5rem !important;
+  padding-bottom: 2.5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  min-height: 100vh !important;
+}
+
+.inner-container {
+  width: 90% !important;
+  min-height: 100vh !important;
+  padding: 10px !important;
+  border-radius: 0.75rem !important; /* same as rounded-xl */
+  /* background-color: white !important; */
+}
+
+.inner-container button{
+    background-color: black !important;
+}
+
+
+/* Header: make title font size smaller on small screens */
+.header-title {
+  font-size: 1.5rem !important; /* smaller on mobile */
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+/* Search area */
+.search-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin-bottom: 1rem !important;
+  flex-wrap: wrap !important;
+}
+
+.search-input {
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 1px solid #d1d5db !important;
+  height: 2rem !important;
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+  border-radius: 2px !important;
+  font-size: 1rem !important;
+  outline: none !important;
+}
+
+.search-button {
+  height: 2.5rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 2px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+/* Add Project form */
+.add-project-form {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.add-project-input-row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+}
+
+.add-project-input {
+  border: 1px solid #d1d5db !important;
+  padding: 7px !important;
+  border-radius: 2px !important;
+  font-size: 1rem !important;
+  height: 1.5rem !important;
+  margin-bottom: 5px !important;
+  outline: none !important;
+  flex: 1 !important;
+}
+
+/* Button full width on mobile */
+.add-project-button {
+  width: 100% !important;
+  background-color: #2563eb !important;
+  color: white !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.875rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+/* Project list item container */
+.project-item {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 0.75rem !important;
+  align-items: flex-start !important;
+}
+
+/* Project info row */
+.project-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+}
+
+/* Edit form inputs inside project list */
+.project-edit-input,
+.project-edit-textarea,
+.project-edit-select {
+  width: 95% !important;
+  border: 1px solid #d1d5db !important;
+  padding: 5px !important;
+  border-radius: 2px !important;
+  font-size: 1rem !important;
+  outline: none !important;
+}
+
+/* Edit textarea smaller height */
+.project-edit-textarea {
+  height: 3rem !important;
+  font-size: 0.9rem !important;
+  resize: none !important;
+}
+
+/* Buttons container */
+.project-buttons {
+  display: flex !important;
+  gap: 0.75rem !important;
+}
+
+/* Pagination controls */
+.pagination {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin-top: 0.625rem !important;
+  margin-bottom: 1rem !important;
+  flex-wrap: wrap !important;
+}
+
+/* Pagination buttons */
+.pagination-btn {
+  border: 1px solid #d1d5db !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  cursor: pointer !important;
+  background-color: white !important;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* ----------- Media Queries ----------- */
+
+/* Tablet (≥ 768px) */
+@media (min-width: 768px) {
+  .inner-container {
+    width: 60% !important ;
+    padding: 1.5rem !important ;
+    margin-top: 10rem !important;
+    flex-direction: column !important ;
+    height: 50% !important;
+  }
+
+  .heading{
+    width: 80% !important;
+  }
+
+  .header-title {
+    font-size: 1.5rem !important ;
+    width: 100% !important;
+  }
+
+  .search-wrapper {
+    width: 70% !important;
+    gap: 0.75rem !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .search-wrapper > div{
+    width: 70% !important;
+  }
+
+  .search-input {
+    max-width: 100% !important;
+  }
+
+  .add-project-form {
+    gap: 1.5rem !important;
+  }
+
+  .add-project-input-row {
+    flex-direction: row !important;
+  }
+
+  .add-project-input {
+    margin-bottom: 0 !important;
+  }
+
+  .add-project-button {
+    width: auto !important;
+  }
+
+  .project-item {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+
+  .project-info {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: auto !important;
+  }
+
+  .project-buttons {
+    gap: 1rem !important;
+  }
+
+  .pagination {
+    flex-wrap: nowrap !important;
+  }
+}
+
+/* Desktop (≥ 1024px) */
+@media (min-width: 1024px) {
+  .inner-container {
+    width: 60% !important ;
+    padding: 1.5rem !important ;
+    margin-top: 6rem !important;
+    flex-direction: column !important ;
+    height: 50% !important;
+  }
+  .search-wrapper{
+    width: 90% !important;
+  }
+  .heading{
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  .header-title {
+    font-size: 2.5rem !important ;
+  }
+
+  .add-project-form{
+    width: 100% !important;
+  }
+
+  .project-list{
+    width: 100% !important;
+  }
+
+
+  .search-wrapper > div{
+    width: 70% !important;
+  }
+
+  .search-input {
+    max-width: 100% !important;
+  }
+
+  .add-project-form {
+    gap: 1.5rem !important;
+  }
+
+  .add-project-input-row {
+    flex-direction: row !important;
+  }
+
+  .add-project-input {
+    margin-bottom: 0 !important;
+  }
+
+  .add-project-button {
+    width: auto !important;
+  }
+
+  .project-item {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+
+  .project-info {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: auto !important;
+  }
+
+  .project-buttons {
+    gap: 1rem !important;
+  }
+
+  .pagination {
+    flex-wrap: nowrap !important;
+    margin-bottom: 2rem !important;
+  }
+}

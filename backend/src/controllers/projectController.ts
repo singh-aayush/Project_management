@@ -61,7 +61,7 @@ export const getProjects = async (
     const totalProjects = await Project.countDocuments(query);
 
     const projects = await Project.find(query)
-      .sort({ createdAt: 1 }) // newest first
+      .sort({ createdAt: -1 }) // newest first
       .skip((page - 1) * LIMIT)
       .limit(LIMIT)
       .lean();
